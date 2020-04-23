@@ -17,6 +17,12 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('show', [
+                'id' => $this->getUser()->getId()
+            ]);
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -36,7 +42,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render(
-            'form.html.twig',
+            'user/register.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -46,12 +52,17 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('show', [
+                'id' => $this->getUser()->getId()
+            ]);
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        
-        return $this->render('login.html.twig', [
+
+        return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);

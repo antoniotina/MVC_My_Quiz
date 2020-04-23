@@ -15,12 +15,4 @@ class IndexController extends AbstractController
     {
         return $this->render('home.html.twig');
     }
-
-    /**
-     * @Route("/show/{id}", name="show")
-     */
-    public function show(User $user)
-    {
-        return $this->render('show.html.twig', compact('user'));
-    }
 }

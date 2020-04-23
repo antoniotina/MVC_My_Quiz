@@ -23,9 +23,11 @@
                         <a class="nav-link" href="{{ path('login') }}">Login</a>
                     </li>
                 {% else %}
-                    {{app.user.username}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">Log Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_update') }}">Update Info</a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
