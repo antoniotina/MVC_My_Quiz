@@ -30,6 +30,23 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @Assert\Type("\DateTimeInterface")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $validated_at = NULL;
+
+    /**
+     * @Assert\Type("\DateTimeInterface")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $last_connection = NULL;
+
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private $token;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
@@ -42,7 +59,7 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
@@ -61,9 +78,39 @@ class User implements UserInterface
         return $this->id;
     }
 
+    public function getValidated_at()
+    {
+        return $this->validated_at;
+    }
+
+    public function getLast_connection()
+    {
+        return $this->last_connection;
+    }
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function setValidated_at($validated_at)
+    {
+        $this->validated_at = $validated_at;
+    }
+
+    public function setLast_connection($last_connection)
+    {
+        $this->last_connection = $last_connection;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 
     public function setEmail($email)

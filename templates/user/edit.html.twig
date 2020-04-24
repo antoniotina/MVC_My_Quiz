@@ -3,6 +3,7 @@
 {% block body %}
     {{ form_start(form) }}
         <div class="form-group">
+            <h1> Check your emails after updating. Validation required.</h1>
             {{ form_row(form.username, { 'attr': {'class': 'form-control', 'value': app.user.username} } ) }}
             {{ form_row(form.email, { 'attr': {'class': 'form-control', 'value': app.user.email} } ) }}
             {{ form_row(form.plainPassword.first, { 'attr': {'class': 'form-control'} } ) }}
