@@ -23,13 +23,6 @@ class Reponse
     private $id;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="id_question", type="integer", nullable=true, options={"default"="NULL"})
-     */
-    private $idQuestion = 'NULL';
-
-    /**
      * @var string|null
      *
      * @ORM\Column(name="reponse", type="string", length=255, nullable=true, options={"default"="NULL"})
@@ -43,21 +36,15 @@ class Reponse
      */
     private $reponseExpected = 'NULL';
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="reponses", fetch="EAGER")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $question;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdQuestion(): ?int
-    {
-        return $this->idQuestion;
-    }
-
-    public function setIdQuestion(?int $idQuestion): self
-    {
-        $this->idQuestion = $idQuestion;
-
-        return $this;
     }
 
     public function getReponse(): ?string
@@ -80,6 +67,18 @@ class Reponse
     public function setReponseExpected(?bool $reponseExpected): self
     {
         $this->reponseExpected = $reponseExpected;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): self
+    {
+        $this->question = $question;
 
         return $this;
     }
