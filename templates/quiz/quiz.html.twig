@@ -2,11 +2,13 @@
 
 {% block body %}
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('addquiz', {'number': 10}) }}">Add 10 question quiz</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('addquiz', {'number': 20}) }}">Add 20 question quiz</a>
-    </li>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('addquiz', {'number': 10}) }}">Add 10 question quiz</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('addquiz', {'number': 20}) }}">Add 20 question quiz</a>
+        </li>
+    {% endif %}
 
 {% endblock %}

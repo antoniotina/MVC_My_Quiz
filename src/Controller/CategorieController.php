@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Form\AddQuizType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -28,7 +29,7 @@ class CategorieController extends AbstractController
     public function showQuiz(Categorie $categorie)
     {
         $cache = new FilesystemAdapter();
-        dd($cache);
+        dd($categorie);
         return $this->render('quiz/showquiz.html.twig', compact('categorie'));
     }
 
@@ -37,6 +38,10 @@ class CategorieController extends AbstractController
      */
     public function addQuiz($number)
     {
-        return $this->render('quiz/addquiz.html.twig');
+        $categorie = new Categorie();
+        $form = $this->createForm(AddQuizType::class, compact('categorie', 'number'));
+        return $this->render('quiz/addquiz.html.twig',
+            array('form' => $form->createView(), 'number' => $number)
+        );
     }
 }
