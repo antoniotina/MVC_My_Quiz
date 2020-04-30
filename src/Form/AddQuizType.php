@@ -2,8 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,25 +19,28 @@ class AddQuizType extends AbstractType
     {
         $categorie = $options['data']['categorie'];
         $builder
-            ->add('name', TextType::class);
+            ->add('name', TextType::class, ['attr' => ['class' => 'form-control'], 'label'  => 'Name of the genre']);
         for ($i = 1; $i <= $options['data']['number']; $i++) {
             $builder
-                ->add("question$i", TextType::class);
+                ->add("question$i", TextType::class, ['attr' => ['class' => 'form-control'], 'label'  => "Question number $i"]);
             for ($z = 1; $z <= 3; $z++) {
                 $builder
-                    ->add("question$i-reponse$z", TextType::class);
+                    ->add("question$i-reponse$z", TextType::class, ['attr' => ['class' => 'form-control'], 'label'  => "Answer $z to question number $i"]);
             }
             $builder->add("question$i-answer", ChoiceType::class, [
                 'choices' => [
-                    '1' => 'stock_yes',
-                    '2' => 'stock_no',
-                    '3' => 'stock_no',
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
                 ],
-            ])
-                    ->add('save', SubmitType::class, [
-                        'attr' => ['class' => 'save'],
+                'attr' => ['class' => 'form-control'],
+                'label'  => "Correct answer to question $i"
             ]);
         }
+        $builder->add('save', SubmitType::class, [
+            'attr' => ['class' => 'save'],
+            'attr' => ['class' => 'btn btn-primary']
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -4,6 +4,9 @@
 
     <h1>Add quiz</h1>
     <div class="form-group">
+    {% if error is defined %}
+        <h2>{{ error }}</h2>
+    {% endif %}
     {{ form_start(form) }}
     {{ form_end(form) }}
     </div>

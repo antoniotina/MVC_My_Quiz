@@ -27,12 +27,12 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="categorie", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="categorie", fetch="EAGER", cascade="persist")
      */
     private $questions;
 
