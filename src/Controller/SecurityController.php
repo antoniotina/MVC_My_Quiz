@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
                 ->from('antonio.tina@epitech.eu')
                 ->to($user->getEmail())
                 ->subject('Activate email')
-                ->html("Please activate your email {$user->getUsername()}<br><a href='http://127.0.0.1:8000/email_act/{$user->getToken()}'>Activate</a>")
+                ->html("Please activate your email {$user->getUsername()}<br><a href='http://" . $_SERVER['SERVER_NAME'] . "/email_act/{$user->getToken()}'>Activate</a>")
             ;
 
             $mailer->send($email);

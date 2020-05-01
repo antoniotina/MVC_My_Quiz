@@ -45,7 +45,7 @@ class UserController extends AbstractController
                 ->from('antonio.tina@epitech.eu')
                 ->to($user->getEmail())
                 ->subject('Activate email')
-                ->html("Your data has been updated, {$user->getUsername()}<br><a href='http://127.0.0.1:8000/email_act/{$user->getToken()}'>Activate email again</a>")
+                ->html("Your data has been updated, {$user->getUsername()}<br><a href='http://" . $_SERVER['SERVER_NAME'] . "/email_act/{$user->getToken()}'>Activate email again</a>")
             ;
 
             $mailer->send($email);

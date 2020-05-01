@@ -2,19 +2,31 @@
 
 {% block body %}
 
-    <h1>Category: {{ categorie.name }}</h1>
-        <ul>
-        {% for question in categorie.questions %}
-            <li>{{ question.question|e }}</li>
-                <ul>
-                {% for reponse in question.reponses %}
-                    <li>{{ reponse.reponse|e }}</li>
-                    {% if reponse.reponseExpected %}
-                        TRUE
-                    {% endif %}
-                {% endfor %}
-                </ul>
-        {% endfor %}
-        </ul>
+	<form>
+		<h1>
+			{{ question.question }}
+		</h1>
+		{% for answer in question.reponses %}
+			<input type="radio" id="{{ answer.id }}" name="reponse" value="{{ answer.id }}" checked="true">
+			<label for="{{ answer.id }}">{{ answer.reponse }}</label><br>
+		{% endfor %}
+        <input type="submit" class="btn btn-primary" value="Next question"></input>
+	</form>
+
+	{# <h1>Category:
+				{{ categorie.name }}</h1>
+			<ul>
+				{% for question in categorie.questions %}
+					<li>{{ question.question|e }}</li>
+					<ul>
+						{% for reponse in question.reponses %}
+							<li>{{ reponse.reponse|e }}</li>
+							{% if reponse.reponseExpected %}
+								TRUE
+							{% endif %}
+						{% endfor %}
+					</ul>
+				{% endfor %}
+			</ul> #}
 
 {% endblock %}
