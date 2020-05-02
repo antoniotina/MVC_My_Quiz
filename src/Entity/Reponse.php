@@ -32,7 +32,7 @@ class Reponse
     /**
      * @var bool|null
      *
-     * @ORM\Column(name="reponse_expected", type="boolean", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="reponse_expected", type="boolean", nullable=true)
      */
     private $reponseExpected = 'NULL';
 

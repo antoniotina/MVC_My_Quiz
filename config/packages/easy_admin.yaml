@@ -1,0 +1,37 @@
+easy_admin:
+    # design:
+    #     menu:
+    #         - {label: "Entities"}
+    #             children:
+    #                 - {entity: Categorie, lavel: "Category List", icon: "th-list"}
+    entities:
+        User:
+            class: App\Entity\User
+            edit:
+                fields:
+                    - { property: 'plainPassword', type: 'password', type_options: { required: false, empty_data: '' } }
+                    - { property: 'email', type: 'text', type_options: { required: true, empty_data: '' } }
+                    - { property: 'username', type: 'text', type_options: { required: true, empty_data: '' } }
+                    - roles
+                    
+        Categorie:
+            class: App\Entity\Categorie
+            edit:
+                fields:
+                    - name
+
+        Reponse:
+            class: App\Entity\Reponse
+            edit:
+                fields:
+                    - reponse
+
+        Question:
+            class: App\Entity\Question
+            edit:
+                fields:
+                    - question
+    #    - App\Entity\Question
+    #    - App\Entity\Reponse
+    #    Categorie:
+    #     class: App\Entity\Categorie

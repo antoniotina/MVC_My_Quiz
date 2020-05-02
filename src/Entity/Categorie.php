@@ -32,13 +32,24 @@ class Categorie
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="categorie", fetch="EAGER", cascade="persist")
+     * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="categorie", fetch="EAGER", cascade={"persist", "remove"})
      */
     private $questions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="categorie", orphanRemoval=true, fetch="EAGER")
+     */
+    private $history;
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->history = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -83,6 +94,37 @@ class Categorie
             // set the owning side to null (unless already changed)
             if ($question->getCategorie() === $this) {
                 $question->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistory(): Collection
+    {
+        return $this->history;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->history->contains($history)) {
+            $this->history[] = $history;
+            $history->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->history->contains($history)) {
+            $this->history->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getCategorie() === $this) {
+                $history->setCategorie(null);
             }
         }
 

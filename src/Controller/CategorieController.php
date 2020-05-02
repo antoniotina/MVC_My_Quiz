@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\History;
 use App\Entity\Reponse;
 use App\Entity\Question;
 use App\Entity\User;
@@ -71,6 +72,19 @@ class CategorieController extends AbstractController
             return $this->render('quiz/showquiz.html.twig', compact("question"));
         } else {
             $score = array("score" => unserialize($_COOKIE["quiz"])["score"], "size" => sizeof($categorie->getQuestions()));
+            $history = new History();
+            $history->setDate(new \DateTime());
+            $score['score'] = $score['score'] . "/" . sizeof($categorie->getQuestions());
+            $history->setScore($score['score']);
+            $history->setCategorie($categorie);
+            if ($this->getUser()) {
+                $history->setUser($this->getUser());
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($history);
+            $entityManager->flush();
+            setcookie('quiz', serialize($_COOKIE["quiz"]), time() - 1000, '/quiz');
+            setcookie('quiz', serialize($_COOKIE["quiz"]), time() - 1000, '/');
             return $this->render('quiz/score.html.twig', compact("score"));
         }
     }

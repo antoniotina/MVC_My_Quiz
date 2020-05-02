@@ -7,6 +7,7 @@ security:
                 property: username
     encoders:
         App\Entity\User: auto
+    access_denied_url: /
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -26,8 +27,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #  - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #  - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/user/update, roles:  IS_AUTHENTICATED_FULLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
         

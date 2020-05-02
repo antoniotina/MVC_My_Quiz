@@ -1,0 +1,35 @@
+{% extends  'base.html.twig'%}
+
+{% block body %}
+
+   <h1>My History</h1>
+    <div class="form-group">
+		{% for singlehistory in myhistory %}
+            {{ singlehistory.categorie.name }}
+            {{ singlehistory.score }}
+            {% if singlehistory.user %}
+                {{ singlehistory.user.username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+                {{ singlehistory.Date|date('Y-m-d H:i:s') }}
+            <br>
+        {% endfor %}
+    </div>
+
+    <h1>Score history</h1>
+    <div class="form-group">
+		{% for singlehistory in history %}
+            {{ singlehistory.categorie.name }}
+            {{ singlehistory.score }}
+            {% if singlehistory.user %}
+                {{ singlehistory.user.username }}
+            {% else %}
+                Anonymous
+            {% endif %}
+                {{ singlehistory.Date|date('Y-m-d H:i:s') }}
+            <br>
+        {% endfor %}
+    </div>
+
+{% endblock %}

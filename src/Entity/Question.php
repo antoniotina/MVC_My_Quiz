@@ -38,7 +38,7 @@ class Question
     private $categorie;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question", fetch="EAGER", cascade="persist")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="question", fetch="EAGER", cascade={"persist", "remove"})
      */
     private $reponses;
 

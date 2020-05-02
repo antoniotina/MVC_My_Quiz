@@ -17,24 +17,46 @@ class History
     private $id;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
      * @ORM\Column(type="string", length=10)
      */
     private $score;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="history", fetch="EAGER")
      */
-    private $relations;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="histories")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="history", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $relation;
+    private $categorie;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return "$this->score";
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
     public function getScore(): ?string
@@ -49,26 +71,26 @@ class History
         return $this;
     }
 
-    public function getRelations(): ?user
+    public function getUser(): ?User
     {
-        return $this->relations;
+        return $this->user;
     }
 
-    public function setRelations(?user $relations): self
+    public function setUser(?User $user): self
     {
-        $this->relations = $relations;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getRelation(): ?Categorie
+    public function getCategorie(): ?Categorie
     {
-        return $this->relation;
+        return $this->categorie;
     }
 
-    public function setRelation(?Categorie $relation): self
+    public function setCategorie(?Categorie $categorie): self
     {
-        $this->relation = $relation;
+        $this->categorie = $categorie;
 
         return $this;
     }

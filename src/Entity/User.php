@@ -26,7 +26,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+    //  * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
@@ -49,13 +49,13 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+    //  * @Assert\NotBlank()
      */
     private $username;
 
     /**
-     * @Assert\NotBlank()
+    //  * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -70,9 +70,15 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="user", fetch="EAGER")
+     */
+    private $history;
+
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
+        $this->history = new ArrayCollection();
     }
 
     public function getId()
@@ -80,9 +86,24 @@ class User implements UserInterface
         return $this->id;
     }
 
+    public function getValidatedAt()
+    {
+        return $this->validated_at;
+    }
+
     public function getValidated_at()
     {
         return $this->validated_at;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
+    }
+
+    public function getLastConnection()
+    {
+        return $this->last_connection;
     }
 
     public function getLast_connection()
@@ -100,9 +121,19 @@ class User implements UserInterface
         return $this->email;
     }
 
+    public function setValidatedAt($validated_at)
+    {
+        $this->validated_at = $validated_at;
+    }
+
     public function setValidated_at($validated_at)
     {
         $this->validated_at = $validated_at;
+    }
+
+    public function setLastConnection($last_connection)
+    {
+        $this->last_connection = $last_connection;
     }
 
     public function setLast_connection($last_connection)
@@ -167,6 +198,37 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistory(): Collection
+    {
+        return $this->history;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->history->contains($history)) {
+            $this->history[] = $history;
+            $history->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->history->contains($history)) {
+            $this->history->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getUser() === $this) {
+                $history->setUser(null);
+            }
+        }
 
         return $this;
     }
