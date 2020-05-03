@@ -19,6 +19,9 @@ class UserController extends AbstractController
      */
     public function show(User $user)
     {
+        if ($user === null) {
+            throw $this->createNotFoundException('user not found');
+        }
         return $this->render('user/show.html.twig', compact('user'));
     }
 
@@ -45,8 +48,7 @@ class UserController extends AbstractController
                 ->from('antonio.tina@epitech.eu')
                 ->to($user->getEmail())
                 ->subject('Activate email')
-                ->html("Your data has been updated, {$user->getUsername()}<br><a href='http://" . $_SERVER['SERVER_NAME'] . "/email_act/{$user->getToken()}'>Activate email again</a>")
-            ;
+                ->html("Your data has been updated, {$user->getUsername()}<br><a href='http://" . $_SERVER['SERVER_NAME'] . "/email_act/{$user->getToken()}'>Activate email again</a>");
 
             $mailer->send($email);
 
@@ -70,7 +72,7 @@ class UserController extends AbstractController
 
         $entityManager->persist($user);
         $entityManager->flush();
-        
+
         return $this->render('home.html.twig');
     }
 }
