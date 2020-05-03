@@ -1,0 +1,18 @@
+{% extends  'base.html.twig'%}
+
+{% block body %}
+
+	<h1>Send email to group</h1>
+	<div class="form-group">
+		<form action="/{{route}}" method="post"><br>
+			<label for="subject">Subject</label>
+			<input type="text" name="subject" id="subject" class="form-control" required autofocus><br>
+			<label for="content">Content</label>
+			<textarea type="textarea" name="content" id="content" class="form-control" rows="5" required autofocus></textarea><br>
+			<button class="btn btn-lg btn-primary" type="submit">
+				SEND
+			</button>
+		</form>
+	</div>
+
+{% endblock %}

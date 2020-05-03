@@ -1,0 +1,13 @@
+{% extends  'base.html.twig'%}
+
+{% block body %}
+
+   <h1>GRAPH</h1>
+    <div class="form-group">
+        <p>Number of quizzes done in the last 24 hours: {{ history24 }}</p>
+        <p>Number of quizzes done in the last week: {{ historyWeek }}</p>
+        <p>Number of quizzes done in the last month: {{ historyMonth }}</p>
+        <p>Number of quizzes done in the last year: {{ historyYear }}</p>
+    </div>
+
+{% endblock %}

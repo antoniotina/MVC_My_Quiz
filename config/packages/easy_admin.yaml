@@ -13,19 +13,20 @@ easy_admin:
                     - { property: 'email', type: 'text', type_options: { required: true, empty_data: '' } }
                     - { property: 'username', type: 'text', type_options: { required: true, empty_data: '' } }
                     - roles
-                    
+                    - validated_at
         Categorie:
             class: App\Entity\Categorie
+            new:
+                fields:
+                    - name
             edit:
                 fields:
                     - name
-
         Reponse:
             class: App\Entity\Reponse
             edit:
                 fields:
                     - reponse
-
         Question:
             class: App\Entity\Question
             edit:

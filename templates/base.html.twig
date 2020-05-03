@@ -23,6 +23,17 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path('history') }}">Quiz History</a>
 						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('sendemail') }}">Send Emails(ADMIN)</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/admin">ADMIN BACKEND</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('graph') }}">GRAPH(ADMIN)</a>
+							</li>
+						{% endif %}
 						{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('user_registration') }}">Register</a>

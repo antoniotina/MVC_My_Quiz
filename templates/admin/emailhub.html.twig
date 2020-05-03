@@ -1,0 +1,21 @@
+{% extends  'base.html.twig'%}
+
+{% block body %}
+
+   <h1>My History</h1>
+    <div class="form-group">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('stqd') }}">Send Email to users that have done at least one quiz</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('stnqd') }}">Send Email to users that haven't done a quiz yet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('stau') }}">Send Email to users that have logged on this month</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('stiu') }}">Send Email to users that haven't logged on for over a month</a>
+        </li>
+    </div>
+
+{% endblock %}
